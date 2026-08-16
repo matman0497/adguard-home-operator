@@ -33,6 +33,5 @@ jobs:
           platforms: |
             linux/amd64
           push: true
-          tags: | # replace it with your local IP and tags
-            gitea.internal.total-chaos.cloud/${{ env.DOCKER_ORG }}/${{ steps.meta.outputs.REPO_NAME }}:${{ steps.meta.outputs.REPO_VERSION }}
-            gitea.internal.total-chaos.cloud/${{ env.DOCKER_ORG }}/${{ steps.meta.outputs.REPO_NAME }}:${{ env.DOCKER_LATEST }}
+          tags: | 
+            gitea.internal.total-chaos.cloud/homelab/adguard-home-operator:latest
