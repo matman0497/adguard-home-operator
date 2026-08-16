@@ -1,0 +1,7 @@
+apiVersion: com.matman0497/v1
+kind: AdGuardDnsRewrite
+metadata:
+  name: test1
+spec:
+  domain: "mattia.com"
+  ipAddress: "192.168.8.1"
