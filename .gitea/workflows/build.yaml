@@ -32,8 +32,7 @@ jobs:
           file: ./Dockerfile
           platforms: |
             linux/amd64
-            linux/arm64
           push: true
           tags: | # replace it with your local IP and tags
-            gitea.internal.totoal-chaos.cloud/${{ env.DOCKER_ORG }}/${{ steps.meta.outputs.REPO_NAME }}:${{ steps.meta.outputs.REPO_VERSION }}
-            gitea.internal.totoal-chaos.cloud/${{ env.DOCKER_ORG }}/${{ steps.meta.outputs.REPO_NAME }}:${{ env.DOCKER_LATEST }}
+            gitea.internal.total-chaos.cloud/${{ env.DOCKER_ORG }}/${{ steps.meta.outputs.REPO_NAME }}:${{ steps.meta.outputs.REPO_VERSION }}
+            gitea.internal.total-chaos.cloud/${{ env.DOCKER_ORG }}/${{ steps.meta.outputs.REPO_NAME }}:${{ env.DOCKER_LATEST }}
