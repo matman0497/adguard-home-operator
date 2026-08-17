@@ -1,5 +1,12 @@
-FROM eclipse-temurin:25
+FROM maven:4.0.0-rc-5-eclipse-temurin-25 AS build
+WORKDIR /workspace
+COPY pom.xml .
+RUN mvn -q -DskipTests dependency:go-offline
+COPY src ./src
+RUN mvn -q -DskipTests package
 
-COPY target/adguard-home-operator-0.1.0-SNAPSHOT.jar app.jar
+FROM eclipse-temurin:21-jre
+
+COPY --from=build workspace/target/adguard-home-operator-0.1.0-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java","-jar","/app.jar"]
