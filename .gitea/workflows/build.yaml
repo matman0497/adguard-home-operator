@@ -18,6 +18,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          architecture: x64
+
       - name: Login to registry
         uses: docker/login-action@v2
         with:
