@@ -9,6 +9,8 @@ import java.net.http.HttpResponse;
 
 public class Client {
 
+  private final Config config = ConfigManager.getDefault();
+
   private final HttpClient httpClient;
 
   private final BasicAuth basicAuth;
@@ -34,8 +36,8 @@ public class Client {
     return response;
   }
 
-  private static String getUrl() {
-    return "http://localhost:8000/control/";
+  private String getUrl() {
+    return config.get("client.base_url");
   }
 
   public HttpResponse<String> put(String path, String body)

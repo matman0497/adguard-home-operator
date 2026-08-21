@@ -51,23 +51,11 @@
             <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.matman0497</groupId>
+            <artifactId>configmanager</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>gitea</id>
-            <url>https://gitea.internal.total-chaos.cloud/api/packages/mmancina/maven</url>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>gitea</id>
-            <url>https://gitea.internal.total-chaos.cloud/api/packages/mmancina/maven</url>
-        </repository>
-        <snapshotRepository>
-            <id>gitea</id>
-            <url>https://gitea.internal.total-chaos.cloud/api/packages/mmancina/maven</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>
