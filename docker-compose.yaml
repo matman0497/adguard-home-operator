@@ -1,0 +1,8 @@
+name: adguardhome
+
+services:
+  adguardhome:
+    image: adguard/adguardhome
+    ports:
+      - "80:8000/tcp" # http web interface
+      - "3000:3000/tcp" # initial setup web interface

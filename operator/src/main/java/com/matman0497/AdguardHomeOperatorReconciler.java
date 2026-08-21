@@ -20,8 +20,7 @@ public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewri
 
     public UpdateControl<AdGuardDnsRewrite> reconcile(AdGuardDnsRewrite primary,
                                                       Context<AdGuardDnsRewrite> context) throws IOException, InterruptedException {
-        log.debug(primary.getSpec().getDomain());
-        log.debug(primary.getSpec().getIpAddress());
+        log.debug("Adding domain to AdGuard {} with ip {}", primary.getSpec().getDomain(), primary.getSpec().getIpAddress());
 
         adGuardClient.add(new AddRewrite(primary.getSpec().getDomain(), primary.getSpec().getIpAddress(), true));
 
