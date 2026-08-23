@@ -20,6 +20,18 @@ public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewri
 
     public UpdateControl<AdGuardDnsRewrite> reconcile(AdGuardDnsRewrite primary,
                                                       Context<AdGuardDnsRewrite> context) throws IOException, InterruptedException {
+
+        //first we need to check if the rewrite already exists
+        var rewrites = adGuardClient.list();
+
+        var alreadyExists = rewrites.stream().anyMatch(r -> r.domain().equals(primary.getSpec().getDomain()) && r.answer().equals(primary.getSpec().getIpAddress()));
+
+        if (alreadyExists) {
+            log.debug("Rewrite already exist on AdGuard");
+
+            return UpdateControl.noUpdate();
+        }
+
         log.debug("Adding domain to AdGuard {} with ip {}", primary.getSpec().getDomain(), primary.getSpec().getIpAddress());
 
         adGuardClient.add(new AddRewrite(primary.getSpec().getDomain(), primary.getSpec().getIpAddress(), true));

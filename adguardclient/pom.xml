@@ -29,7 +29,6 @@
 
                 <configuration>
                     <java>
-                        <googleJavaFormat />
                         <removeUnusedImports />
                         <trimTrailingWhitespace />
                         <endWithNewline />
