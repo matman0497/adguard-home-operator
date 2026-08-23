@@ -1,6 +1,10 @@
 package com.matman0497;
 
+import com.matman0497.actions.Rewrite;
 import com.matman0497.auth.BasicAuth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,6 +14,8 @@ import java.net.http.HttpResponse;
 public class Client {
 
   private final Config config = ConfigManager.getDefault();
+
+  private static final Logger log = LoggerFactory.getLogger(Client.class);
 
   private final HttpClient httpClient;
 
@@ -56,9 +62,14 @@ public class Client {
   }
 
   public HttpResponse<String> get(String path) throws IOException, InterruptedException {
+
+    var endpoint = URI.create(getUrl() + path);
+
+    log.debug("Sending request to {}", endpoint);
+
     var response =
         this.httpClient.send(
-            createBuilder().uri(URI.create(getUrl() + path)).GET().build(),
+            createBuilder().uri(endpoint).GET().build(),
             HttpResponse.BodyHandlers.ofString());
 
     if (response.statusCode() == 401) {

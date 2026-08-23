@@ -7,11 +7,17 @@ import com.matman0497.requests.UpdateRewrite;
 import com.matman0497.responses.*;
 import java.io.IOException;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 public class Rewrite {
   private final Client client;
+
+  private static final Logger log = LoggerFactory.getLogger(Rewrite.class);
+
 
   public Rewrite(Client client) {
     this.client = client;
@@ -41,6 +47,8 @@ public class Rewrite {
   public List<RewriteObject> list() throws IOException, InterruptedException {
 
     var s = this.client.get("rewrite/list");
+
+    log.debug(s.body());
 
     ObjectMapper objectMapper = new ObjectMapper();
 

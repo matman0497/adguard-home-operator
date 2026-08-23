@@ -12,7 +12,7 @@ metadata:
 rules:
   - apiGroups: ["com.matman0497"]
     resources: ["adguarddnsrewrites"]
-    verbs: ["get", "list", "watch"]
+    verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -26,6 +26,15 @@ roleRef:
   kind: ClusterRole
   name: adguardhome-operator
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: adguardhome-password
+  namespace: adguardhome-operator
+type: Opaque
+stringData:
+  password: "ADD_PASSWORD_HERE"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,5 +55,15 @@ spec:
     spec:
       containers:
         - name: adguardhome-operator
-          image: gitea.internal.total-chaos.cloud/mmancina/adguard-home-operator:latest
+          image: gitea.internal.total-chaos.cloud/mmancina/adguard-home-operator:c5ba464f2c93ac2a4ef343e96cf8e67b6def9fe3
           imagePullPolicy: Always
+          env:
+            - name: CLIENT_BASE_URL
+              value: "http://192.168.8.254/control/"
+            - name: ADGUARD_USERNAME
+              value: "admin"
+            - name: ADGUARD_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: adguardhome-password
+                  key: password
