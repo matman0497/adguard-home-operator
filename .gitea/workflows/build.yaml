@@ -20,8 +20,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: gitea.internal.total-chaos.cloud
-          username: ${{ secrets.CI_USER }}
-          password: ${{ secrets.CI_TOKEN }}
+          username: ${{ gitea.actor }}
+          password: ${{ gitea.token }}
 
       - uses: s4u/maven-settings-action@v4.0.0
         with:
