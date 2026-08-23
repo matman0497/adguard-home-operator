@@ -47,4 +47,4 @@ spec:
       containers:
         - name: adguardhome-operator
           image: gitea.internal.total-chaos.cloud/mmancina/adguard-home-operator:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always

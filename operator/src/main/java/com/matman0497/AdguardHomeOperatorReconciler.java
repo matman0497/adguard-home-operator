@@ -28,7 +28,7 @@ public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewri
         try {
             rewrites = adGuardClient.list();
         } catch (IOException | InterruptedException e) {
-            log.debug("Error fetching rewrites", e);
+            log.debug("Error fetching rewrites {}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
 
@@ -45,7 +45,7 @@ public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewri
         try {
             adGuardClient.add(new AddRewrite(primary.getSpec().getDomain(), primary.getSpec().getIpAddress(), true));
         } catch (IOException | InterruptedException e) {
-            log.debug("Error adding rewrite", e);
+            log.debug("Error adding rewrite {}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
 
