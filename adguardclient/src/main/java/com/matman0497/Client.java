@@ -61,6 +61,14 @@ public class Client {
             createBuilder().uri(URI.create(getUrl() + path)).GET().build(),
             HttpResponse.BodyHandlers.ofString());
 
+    if (response.statusCode() == 401) {
+      throw new RuntimeException("unauthorized");
+    }
+
+    if (response.statusCode() == 403) {
+      throw new RuntimeException("unauthenticated");
+    }
+
     return response;
   }
 
