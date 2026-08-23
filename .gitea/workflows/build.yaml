@@ -2,8 +2,6 @@ name: Build and Push Docker Image
 
 on:
   push:
-    tags:
-      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -28,6 +26,7 @@ jobs:
                   "property": {
                     "name": "Authorization",
                     "value": "token abc"
+                }
                 }
               }
             }]
