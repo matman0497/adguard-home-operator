@@ -48,4 +48,4 @@ jobs:
           push: true
           tags: | 
             gitea.internal.total-chaos.cloud/mmancina/adguard-home-operator:latest
-            gitea.example.com/myuser/myrepo:${{ gitea.sha }}
+            gitea.internal.total-chaos.cloud/mmancina/adguard-home-operator:${{ gitea.sha }}
