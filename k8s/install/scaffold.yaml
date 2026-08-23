@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: adguardhome-operator
+  labels:
+    name: adguardhome-operator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: adguardhome-operator
+rules:
+  - apiGroups: ["com.matman0497"]
+    resources: ["adguarddnsrewrites"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: adguardhome-operator
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: adguardhome-operator
+roleRef:
+  kind: ClusterRole
+  name: adguardhome-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguardhome-operator
+  namespace: adguardhome-operator
+  labels:
+    app: adguardhome-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  adguardhome-operator
+  template:
+    metadata:
+      labels:
+        app:  adguardhome-operator
+    spec:
+      containers:
+        - name: adguardhome-operator
+          image: gitea.internal.total-chaos.cloud/mmancina/adguard-home-operator:latest
+          imagePullPolicy: IfNotPresent
