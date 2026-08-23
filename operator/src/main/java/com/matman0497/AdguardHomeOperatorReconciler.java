@@ -3,11 +3,13 @@ package com.matman0497;
 import com.matman0497.actions.Rewrite;
 import com.matman0497.requests.AddRewrite;
 import com.matman0497.requests.DeleteRewrite;
+import com.matman0497.responses.RewriteObject;
 import io.javaoperatorsdk.operator.api.reconciler.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewrite>, Cleaner<AdGuardDnsRewrite> {
     private static final Logger log = LoggerFactory.getLogger(AdguardHomeOperatorReconciler.class);
@@ -19,10 +21,16 @@ public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewri
     }
 
     public UpdateControl<AdGuardDnsRewrite> reconcile(AdGuardDnsRewrite primary,
-                                                      Context<AdGuardDnsRewrite> context) throws IOException, InterruptedException {
+                                                      Context<AdGuardDnsRewrite> context) {
 
         //first we need to check if the rewrite already exists
-        var rewrites = adGuardClient.list();
+        List<RewriteObject> rewrites = null;
+        try {
+            rewrites = adGuardClient.list();
+        } catch (IOException | InterruptedException e) {
+            log.debug("Error fetching rewrites", e);
+            throw new RuntimeException(e);
+        }
 
         var alreadyExists = rewrites.stream().anyMatch(r -> r.domain().equals(primary.getSpec().getDomain()) && r.answer().equals(primary.getSpec().getIpAddress()));
 
@@ -34,7 +42,12 @@ public class AdguardHomeOperatorReconciler implements Reconciler<AdGuardDnsRewri
 
         log.debug("Adding domain to AdGuard {} with ip {}", primary.getSpec().getDomain(), primary.getSpec().getIpAddress());
 
-        adGuardClient.add(new AddRewrite(primary.getSpec().getDomain(), primary.getSpec().getIpAddress(), true));
+        try {
+            adGuardClient.add(new AddRewrite(primary.getSpec().getDomain(), primary.getSpec().getIpAddress(), true));
+        } catch (IOException | InterruptedException e) {
+            log.debug("Error adding rewrite", e);
+            throw new RuntimeException(e);
+        }
 
         log.debug("Reconciling...");
 

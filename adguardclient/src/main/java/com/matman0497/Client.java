@@ -23,17 +23,14 @@ public class Client {
   public HttpResponse<String> post(String path, String body)
       throws IOException, InterruptedException {
 
-    var response =
-        this.httpClient.send(
-            HttpRequest.newBuilder()
-                .header("Authorization", basicAuth.getHeaderValue())
-                .header("Content-Type", "application/json")
-                .uri(URI.create(getUrl() + path))
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build(),
-            HttpResponse.BodyHandlers.ofString());
-
-    return response;
+      return this.httpClient.send(
+          HttpRequest.newBuilder()
+              .header("Authorization", basicAuth.getHeaderValue())
+              .header("Content-Type", "application/json")
+              .uri(URI.create(getUrl() + path))
+              .POST(HttpRequest.BodyPublishers.ofString(body))
+              .build(),
+          HttpResponse.BodyHandlers.ofString());
   }
 
   private String getUrl() {
