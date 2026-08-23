@@ -21,7 +21,7 @@ jobs:
         with:
           registry: gitea.internal.total-chaos.cloud
           username: ${{ gitea.actor }}
-          password: ${{ secrets.GITEA_TOKEN }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
 
       - uses: s4u/maven-settings-action@v4.0.0
         with:
