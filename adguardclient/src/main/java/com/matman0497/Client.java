@@ -18,6 +18,8 @@ public class Client {
   public Client(HttpClient httpClient, BasicAuth basicAuth) {
     this.httpClient = httpClient;
     this.basicAuth = basicAuth;
+
+    config.overrideFromEnv("client.base_url", "CLIENT_BASE_URL");
   }
 
   public HttpResponse<String> post(String path, String body)
