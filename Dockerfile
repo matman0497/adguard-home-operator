@@ -1,4 +1,4 @@
-FROM maven:4.0.0-rc-5-eclipse-temurin-25 AS build
+FROM maven:3.9.16-eclipse-temurin-25 AS build
 WORKDIR /workspace
 COPY operator/pom.xml ./operator/pom.xml
 COPY adguardclient/pom.xml ./adguardclient/pom.xml
@@ -7,7 +7,8 @@ COPY adguardclient/src ./adguardclient/src
 
 COPY pom.xml .
 
-RUN --mount=type=secret,id=maven_settings,target=/root/.m2/settings.xml mvn -DskipTests package -X
+RUN --mount=type=secret,id=maven_settings,target=/root/.m2/settings.xml \
+    mvn -DskipTests package -X
 
 FROM eclipse-temurin:25-jre
 

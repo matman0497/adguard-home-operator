@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>adguard-home-operator-reconcile</artifactId>
-    <name>adguard-home-operator</name>
+    <name>adguard-home-operator-reconcile</name>
     <packaging>jar</packaging>
 
     <parent>
