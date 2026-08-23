@@ -15,7 +15,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        var client = new Client(HttpClient.newBuilder().build(), new BasicAuth(System.getenv("ADGUARD_USERNAME"), System.getenv("ADGUARD_USERNAME")));
+        var client = new Client(HttpClient.newBuilder().build(), new BasicAuth(System.getenv("ADGUARD_USERNAME"), System.getenv("ADGUARD_PASSWORD")));
 
         var rewrite = new Rewrite(client);
 
