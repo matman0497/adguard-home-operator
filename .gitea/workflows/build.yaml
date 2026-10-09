@@ -23,21 +23,6 @@ jobs:
           username: ${{ gitea.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
 
-      - uses: s4u/maven-settings-action@v4.0.0
-        with:
-          servers: |
-            [{
-              "id": "gitea",
-              "configuration": {
-                "httpHeaders": {
-                  "property": {
-                    "name": "Authorization",
-                    "value": "token abc"
-                }
-                }
-              }
-            }]
-
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
